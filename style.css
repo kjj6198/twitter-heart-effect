@@ -32,9 +32,10 @@ label[for="toggle-heart"] {
     transform: scale(0);
     background-color: gold; }
   label[for="toggle-heart"]:after {
-    margin: -0.375rem;
+    margin: -0.1875rem;
     width: 0.1875rem;
-    height: 0.1875rem; }
+    height: 0.1875rem;
+    box-shadow: 0rem -2.25rem, 1.75912rem -1.40285rem, 2.19359rem 0.50067rem, 0.97624rem 2.02718rem, -0.97624rem 2.02718rem, -2.19359rem 0.50067rem, -1.75912rem -1.40285rem; }
 
 input[id="toggle-heart"]:checked + label[for="toggle-heart"] {
   color: red;

@@ -25,19 +25,25 @@ $particle-r: 0.5 * $particle-d;
 
 $shadow-list: ();
 $n-groups: 7;
-$group-base-angle: 360deg/$n-groups;
+$group-base-angle: 360deg / $n-groups;
 $group-dist-r: $bubble-radius;
 
+$n-particles: 2;
+$particle-base-angle: 360deg / $n-particles;
+$particle-off-angoe: 60deg;
+
 @for $i from 0 to $n-groups {
-  // current group angle, starting fron 12 o'clock
-  $group-curr-angle: $i*$group-base-angle - 90deg;
-  // coords of the central point of current group of particles
-  @debug cos(strip-unit($group-curr-angle) * 3.1415926 / 180);
-  $xg: $group-dist-r * cos(strip-unit($group-curr-angle));
-  $yg: $group-dist-r * sin(strip-unit($group-curr-angle));
+  
+  $group-curr-angle: $i * $group-base-angle - 90deg;
+  
+  
+  $xg: $group-dist-r * cos($group-curr-angle);
+  $yg: $group-dist-r * sin($group-curr-angle);
+	
 	
   // add to shadow list
   $shadow-list: $shadow-list, $xg $yg;
+  @debug $xg, $yg;
 }
 
 
@@ -68,8 +74,10 @@ label[for="toggle-heart"] {
 	}
 
 	&:after {
-		margin: -$particle-d;
+		margin: -$particle-r;
 		width: $particle-r; height: $particle-r;
+
+		box-shadow: $shadow-list;
 	}
 }
 
