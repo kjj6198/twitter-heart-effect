@@ -1,4 +1,50 @@
-input[type="checkbox"] {
+/* 
+  checkbox hack
+  搭配 label 的方式讓 checkbox 移除後依然可以生效
+*/
+input[id="toggle-heart"] {
 	position: absolute;
 	left: -100vw;
+}
+
+label[for="toggle-heart"] {
+	position: relative;
+	font-size: 2em;
+	color: #aab8c2;
+	cursor: pointer;
+
+	&:before, &:after {
+		position: absolute;
+		z-index: -1;
+		top: 50%;
+		left: 50%;
+
+		content: "";
+		border-radius: 50%;
+	}
+	
+	$bubble-diameter: 4.5rem;
+	$bubble-radius: 0.5 * $bubble-diameter;
+
+	&:before {
+		margin: -$bubble-radius;
+		width: $bubble-diameter;
+		height: $bubble-diameter;
+
+		transform: scale(0);
+
+		background-color: gold;
+	}
+}
+
+input[id="toggle-heart"]:checked + label[for="toggle-heart"] {
+	color: red;
+	animation: hearts 1s cubic-bezier(.17, .89, .32, 1.49); /* timing function */
+}
+
+@keyframes hearts {
+  0%, 
+  17.5% {
+  	font-size: 0;
+  }
 }

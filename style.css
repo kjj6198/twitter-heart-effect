@@ -1,5 +1,39 @@
-input[type="checkbox"] {
+@charset "UTF-8";
+/* 
+  checkbox hack
+  搭配 label 的方式讓 checkbox 移除後依然可以生效
+*/
+input[id="toggle-heart"] {
   position: absolute;
   left: -100vw; }
+
+label[for="toggle-heart"] {
+  position: relative;
+  font-size: 2em;
+  color: #aab8c2;
+  cursor: pointer; }
+  label[for="toggle-heart"]:before, label[for="toggle-heart"]:after {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    content: "";
+    border-radius: 50%; }
+  label[for="toggle-heart"]:before {
+    margin: -2.25rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    transform: scale(0);
+    background-color: gold; }
+
+input[id="toggle-heart"]:checked + label[for="toggle-heart"] {
+  color: red;
+  animation: hearts 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+  /* timing function */ }
+
+@keyframes hearts {
+  0%, 
+  17.5% {
+    font-size: 0; } }
 
 /*# sourceMappingURL=style.css.map */
