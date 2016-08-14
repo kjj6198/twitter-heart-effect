@@ -70,7 +70,3 @@ $_precision: 10;
   }
   @return $cos;
 }
-
-@function tan($angle){
-  @return sin($angle) / cos($angle);
-}
