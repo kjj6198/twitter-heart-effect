@@ -3,6 +3,7 @@
   搭配 label 的方式讓 checkbox 移除後依然可以生效
 */
 
+@import "_functions";
 
 body {
 	height: 100vh;
@@ -21,6 +22,24 @@ $bubble-radius: 0.5 * $bubble-diameter;
 
 $particle-d: 0.375rem;
 $particle-r: 0.5 * $particle-d;
+
+$shadow-list: ();
+$n-groups: 7;
+$group-base-angle: 360deg/$n-groups;
+$group-dist-r: $bubble-radius;
+
+@for $i from 0 to $n-groups {
+  // current group angle, starting fron 12 o'clock
+  $group-curr-angle: $i*$group-base-angle - 90deg;
+  // coords of the central point of current group of particles
+  @debug cos(strip-unit($group-curr-angle) * 3.1415926 / 180);
+  $xg: $group-dist-r * cos(strip-unit($group-curr-angle));
+  $yg: $group-dist-r * sin(strip-unit($group-curr-angle));
+	
+  // add to shadow list
+  $shadow-list: $shadow-list, $xg $yg;
+}
+
 
 label[for="toggle-heart"] {
 	position: relative;
