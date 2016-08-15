@@ -51,7 +51,8 @@ $particle-off-angle: 60deg;
 		$xs: $xg + $particle-d * cos($particle-curr-angle);
 		$ys: $yg + $particle-d * sin($particle-curr-angle);
 		
-		$shadow-list: $shadow-list, $xs $ys;
+		/* HSL usage */	
+		$shadow-list: $shadow-list, $xs $ys hsl(($i + $j) * $group-base-angle, 100%, 75%);
   }
 }
 @debug $shadow-list;
