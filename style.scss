@@ -30,7 +30,7 @@ $group-dist-r: $bubble-radius;
 
 $n-particles: 2;
 $particle-base-angle: 360deg / $n-particles;
-$particle-off-angoe: 60deg;
+$particle-off-angle: 60deg;
 
 @for $i from 0 to $n-groups {
   
@@ -43,9 +43,18 @@ $particle-off-angoe: 60deg;
 	
   // add to shadow list
   $shadow-list: $shadow-list, $xg $yg;
-  @debug $xg, $yg;
-}
+  
 
+  @for $j from 0 to $n-particles {
+		$particle-curr-angle: $group-curr-angle + $particle-off-angle + $j * $particle-base-angle;
+
+		$xs: $xg + $particle-d * cos($particle-curr-angle);
+		$ys: $yg + $particle-d * sin($particle-curr-angle);
+		
+		$shadow-list: $shadow-list, $xs $ys;
+  }
+}
+@debug $shadow-list;
 
 label[for="toggle-heart"] {
 	position: relative;
@@ -80,6 +89,7 @@ label[for="toggle-heart"] {
 		box-shadow: $shadow-list;
 	}
 }
+
 
 input[id="toggle-heart"]:checked + label[for="toggle-heart"] {
 	color: red;
