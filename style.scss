@@ -17,117 +17,113 @@ input[id="toggle-heart"] {
 	left: -100vw;
 }
 
-@mixin twitter-heart-effect($heartName, $heartSize: 5em) {
-	$bubble-diameter: 5rem;
-	$bubble-radius: 0.5 * $bubble-diameter;
+$bubble-diameter: 9rem;
+$bubble-radius: 0.5 * $bubble-diameter;
 
-	$particle-d: 0.375rem;
-	$particle-r: 0.5 * $particle-d;
+$particle-d: 0.375rem;
+$particle-r: 0.5 * $particle-d;
 
-	@mixin bubble($ext) {
-		border-color: #cc8ef5;
-		border-width: $ext;
-		transform: scale(1);
-	}
-
-	@mixin particles($k) {
-	  $shadow-list: ();
-	  $n-groups: 7;
-	  $group-base-angle: 360deg / $n-groups;
-	  $group-dist-r: (1 + $k * 0.25) * $bubble-radius;
-	  $n-particles: 2;
-	  $particle-base-angle: 360deg / $n-particles;
-	  $particle-off-angle: 60deg;
-	  $spread-r: -$k * $particle-r;
-
-
-	  @for $i from 0 to $n-groups {
-	    
-	    $group-curr-angle: $i * $group-base-angle - 90deg;
-	    
-	    
-	    $xg: $group-dist-r * cos($group-curr-angle);
-	    $yg: $group-dist-r * sin($group-curr-angle);
-	  	
-	  	
-	    // add to shadow list
-	    $shadow-list: $shadow-list, $xg $yg;
-	    
-
-	    @for $j from 0 to $n-particles {
-	  		$particle-curr-angle: $group-curr-angle + $particle-off-angle + $j * $particle-base-angle;
-
-	  		$xs: $xg + $particle-d * cos($particle-curr-angle);
-	  		$ys: $yg + $particle-d * sin($particle-curr-angle);
-
-	  		/* HSL usage */	
-	  		$shadow-list: $shadow-list, $xs $ys hsl(($i + $j) * $group-base-angle, 100%, 75%);
-	    }
-	  }
-	  box-shadow: $shadow-list;
-	}
-
-
-  label[for="toggle-heart"] {
-  	position: relative;
-  	font-size: $heartSize;
-  	color: #aab8c2;
-  	cursor: pointer;
-
-  	&:before, &:after {
-  		position: absolute;
-  		z-index: -1;
-  		top: 50%;
-  		left: 50%;
-
-  		content: "";
-  		border-radius: 50%;
-  	}
-
-  	&:before {
-  		box-sizing: border-box;
-  		margin: -$bubble-radius;
-  		width: $bubble-diameter; height: $bubble-diameter;
-  		border: solid $bubble-radius #e2264d;
-
-  		transform: scale(0);
-  	}
-
-  	&:after {
-  		margin: -$particle-r;
-  		width: $particle-d; 
-  		height: $particle-d;
-  		
-  		opacity: 0;
-  		@include particles(0);
-
-  	}
-  }
-
-
-  input[id="toggle-heart"]:checked + label[for="toggle-heart"] {
-  	color: red;
-  	animation: hearts .8s cubic-bezier(.17, .89, .32, 1.49); /* timing function */
-  	
-  	&:after, &:before {
-  		animation: inherit;
-      animation-timing-function: cubic-bezier(.21, .61, .35, 1);
-  	}
-
-  	&:before {
-  		will-change: border-width, border-color, tranform;
-  		animation-name: bubbles;
-  	}
-
-  	&:after {
-  		@include particles(1);
-  		animation-duration: .7s;
-  		animation-name: particles;
-  	}
-  }
+@mixin bubble($ext) {
+	border-color: #cc8ef5;
+	border-width: $ext;
+	transform: scale(1);
 }
 
-@include()
+@mixin particles($k) {
+  $shadow-list: ();
+  $n-groups: 7;
+  $group-base-angle: 360deg / $n-groups;
+  $group-dist-r: (1 + $k * 0.25) * $bubble-radius;
+  $n-particles: 2;
+  $particle-base-angle: 360deg / $n-particles;
+  $particle-off-angle: 60deg;
+  $spread-r: -$k * $particle-r;
+
+
+  @for $i from 0 to $n-groups {
+    
+    $group-curr-angle: $i * $group-base-angle - 90deg;
+    
+    
+    $xg: $group-dist-r * cos($group-curr-angle);
+    $yg: $group-dist-r * sin($group-curr-angle);
+  	
+  	
+    // add to shadow list
+    $shadow-list: $shadow-list, $xg $yg;
+    
+
+    @for $j from 0 to $n-particles {
+  		$particle-curr-angle: $group-curr-angle + $particle-off-angle + $j * $particle-base-angle;
+
+  		$xs: $xg + $particle-d * cos($particle-curr-angle);
+  		$ys: $yg + $particle-d * sin($particle-curr-angle);
+
+  		/* HSL usage */	
+  		$shadow-list: $shadow-list, $xs $ys hsl(($i + $j) * $group-base-angle, 100%, 75%);
+    }
+  }
+  box-shadow: $shadow-list;
+}
+
+
+label[for="toggle-heart"] {
+	position: relative;
+	font-size: 10em;
+	color: #aab8c2;
+	cursor: pointer;
+
+	&:before, &:after {
+		position: absolute;
+		z-index: -1;
+		top: 50%;
+		left: 50%;
+
+		content: "";
+		border-radius: 50%;
+	}
+
+	&:before {
+		box-sizing: border-box;
+		margin: -$bubble-radius;
+		width: $bubble-diameter; height: $bubble-diameter;
+		border: solid $bubble-radius #e2264d;
+
+		transform: scale(0);
+	}
+
+	&:after {
+		margin: -$particle-r;
+		width: $particle-d; 
+		height: $particle-d;
+		
+		opacity: 0;
+		@include particles(0);
+
+	}
+}
+
+
+input[id="toggle-heart"]:checked + label[for="toggle-heart"] {
+	color: red;
+	animation: hearts .8s cubic-bezier(.17, .89, .32, 1.49); /* timing function */
+	
+	&:after, &:before {
+		animation: inherit;
+    animation-timing-function: cubic-bezier(.21, .61, .35, 1);
+	}
+
+	&:before {
+		will-change: border-width, border-color, tranform;
+		animation-name: bubbles;
+	}
+
+	&:after {
+		@include particles(1);
+		animation-duration: .7s;
+		animation-name: particles;
+	}
+}
 
 @keyframes hearts {
   0%, 
